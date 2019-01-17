@@ -9,3 +9,5 @@ g1.ansiCalendar({
 }, function (err, data) {
     console.log(err || data);
 });
+
+var a = "a";

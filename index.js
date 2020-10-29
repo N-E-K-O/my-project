@@ -1,13 +1,10 @@
-// Dependencies
-var GitStats = require("git-stats");
+var _Promise = require("./Promise");
 
-// Create the GitStats instance
-var g1 = new GitStats();
-
-// Display the ansi calendar
-g1.ansiCalendar({
-}, function (err, data) {
-    console.log(err || data);
+var p = new _Promise(function(resolve, reject) {
+    setTimeout(function() { resolve("promise success") }, 5000)
 });
 
-var a = "a";
+p.then(
+    function(rs) { console.log(rs); },  //promise success
+    function(e) {}
+);

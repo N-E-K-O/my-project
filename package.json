@@ -1,0 +1,26 @@
+{
+  "name": "my-project",
+  "version": "1.0.0",
+  "description": "practice git",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/N-E-K-O/my-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/N-E-K-O/my-project/issues"
+  },
+  "homepage": "https://github.com/N-E-K-O/my-project#readme",
+  "devDependencies": {
+    "vue": "^2.6.12",
+    "webpack": "^5.5.0"
+  }
+}

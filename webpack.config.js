@@ -13,7 +13,15 @@ module.exports = {
             {
                 test: /\.js$/,
                 include: path.resolve(__dirname, 'src'),
-                use: 'babel-loader'
+                use: [
+                    'babel-loader',
+                    {
+                        loader: './local_loaders/local-loader.js',
+                        options: {
+                            isLocal: true
+                        }
+                    }
+                ]
             },
             {
                 test: /\.css$/,

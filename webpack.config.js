@@ -3,10 +3,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin  = require('vue-loader/lib/plugin')
 
 module.exports = {
-    entry: './src/main.js',
+    mode: 'development',
+    entry: {
+        main: './src/main.js'
+    },
     output: {
-      filename: 'main.js',
-      path: path.resolve(__dirname, 'dist')
+      filename: '[name].[fullhash].js',
+      path: path.resolve(__dirname, 'dist'),
     },
     module: {
         rules: [

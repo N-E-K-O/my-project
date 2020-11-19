@@ -4,10 +4,11 @@
     </div>
 </template>
 <script>
-import simpleTree from './components/simpleTree.vue'
 export default {
     name: "app",
-    components: { simpleTree }
+    components: {
+        simpleTree: () => import('./components/simpleTree.vue')
+    }
 }
 </script>
 <style scoped>

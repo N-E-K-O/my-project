@@ -13,17 +13,19 @@
         body {
             position: relative;
             background-color: rgb(192, 72, 81);
-            transition: all 5s;
+            transition: all 5s ease;
+            margin: 0;
+            padding: 0;
         }
 
         .txt-container {
             position: absolute;
-            top: 200px;
+            top: 10em;
             right: 50%;
+            transform: translateX(50%);
             color: white;
             display: flex;
             flex-direction: row-reverse;
-            transform: translateX(50%);
         }
 
         .vertical-txt {
@@ -31,22 +33,22 @@
         }
 
         .vertical-txt.logo {
-            margin-top: -110px;
-            font-size: 32px;
+            margin-top: -6.5em;
+            font-size: 1em;
         }
         .vertical-txt.logo .en {
-            font-size: 40px;
+            font-size: 2em;
             letter-spacing: 5px;
         }
 
         .vertical-txt.zh {
-            font-size: 32px;
-            font-family: "f_zh", "宋体", "微软雅黑";
+            font-size: 1.5em;
+            font-family: "f_zh";
         }
 
         .brand {
-            width: 16px; 
-            height: 16px;
+            width: .5em; 
+            height: .5em;
             transform: rotate(90deg);
         }
     </style>
@@ -55,7 +57,7 @@
 <body>
     <div class="txt-container">
         <p class="vertical-txt logo">
-            <img src="./images/梅花.png" style="width: 128px; height: 128px;">
+            <img src="./images/梅花.png" style="width: 8em; height: 8em;">
             <span class="en">HAPPY BIRTHDAY</span>
             <img class="brand" src="./images/印花.png">
         </p>
@@ -80,7 +82,7 @@
             document.body.style.backgroundColor = bg_colors[__index];
             if (__index == bg_colors.length) __index = 0;
             else __index++;
-        }, 6000);
+        }, 1000 * 10);
     </script>
 </body>
 

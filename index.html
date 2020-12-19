@@ -12,6 +12,7 @@
         }
 
         body {
+            -webkit-text-size-adjust: 100% !important;
             position: relative;
             background-color: rgb(192, 72, 81);
             transition: all 5s ease;
@@ -37,8 +38,9 @@
             margin-top: -6.5em;
             margin-left: -1em;
             font-size: 1em;
-            
+
         }
+
         .vertical-txt.logo .en {
             font-size: 2em;
             letter-spacing: 5px;
@@ -47,10 +49,11 @@
         .vertical-txt.zh {
             font-size: 1.5em;
             font-family: "f_zh", "宋体";
+            letter-spacing: 5px;
         }
 
         .brand {
-            width: .5em; 
+            width: .5em;
             height: .5em;
             transform: rotate(90deg);
         }
@@ -70,6 +73,30 @@
     </div>
 
     <script>
+        function resetFontSize() {
+            if (typeof WeixinJSBridge === 'object' && typeof WeixinJSBridge.invoke === 'function') {
+                handleFontSize();
+            } else {
+                if (document.addEventListener) {
+                    document.addEventListener('WeixinJSBridgeReady', handleFontSize, false);
+                } else if (document.attachEvent) {
+                    document.attachEvent('WeixinJSBridgeReady', handleFontSize);
+                    document.attachEvent('onWeixinJSBridgeReady', handleFontSize);
+                }
+            }
+
+            function handleFontSize() {
+                WeixinJSBridge.invoke('setFontSizeCallback', {
+                    'fontSize': 0
+                });
+                WeixinJSBridge.on('menu:setfont', function () {
+                    WeixinJSBridge.invoke('setFontSizeCallback', {
+                        'fontSize': 0
+                    });
+                });
+            }
+        };
+        resetFontSize();
         var __index = 1;
         var bg_colors = [
             "rgb(192, 72, 81)",
@@ -81,7 +108,7 @@
             "rgb(17, 119, 176)",
             "rgb(173, 101, 152)"
         ];
-        setInterval(function() {
+        setInterval(function () {
             document.body.style.backgroundColor = bg_colors[__index];
             if (__index == bg_colors.length) __index = 0;
             else __index++;

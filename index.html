@@ -9,11 +9,10 @@
         @font-face {
             font-family: "f_zh";
             src: url('fonts/f_zh.woff') format('woff'),
-                 url('fonts/f_zh.ttf')  format('truetype');
+                url('fonts/f_zh.ttf') format('truetype');
         }
 
         body {
-            -webkit-text-size-adjust: 100% !important;
             position: relative;
             background-color: rgb(192, 72, 81);
             transition: all 5s ease;
@@ -22,13 +21,12 @@
         }
 
         .txt-container {
-            position: absolute;
-            top: 10em;
-            right: 50%;
-            transform: translateX(50%);
+            width: 33.3%;
+            margin: 10em auto;
             color: white;
             display: flex;
             flex-direction: row-reverse;
+            justify-content: space-around;
         }
 
         .vertical-txt {
@@ -37,9 +35,10 @@
 
         .vertical-txt.logo {
             margin-top: -6.5em;
-            margin-left: -1em;
             font-size: 1em;
-
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .vertical-txt.logo .en {
@@ -48,7 +47,7 @@
         }
 
         .vertical-txt.zh {
-            font-size: 1.5em;
+            font-size: 1em;
             font-family: "f_zh", "宋体";
             letter-spacing: 5px;
         }
@@ -74,22 +73,22 @@
     </div>
 
     <script>
-        var __index = 1;
-        var bg_colors = [
-            "rgb(192, 72, 81)",
-            "rgb(240, 124, 130)",
-            "rgb(80, 10, 22)",
-            "rgb(230, 210, 213)",
-            "rgb(47, 47, 53)",
-            "rgb(167, 168, 189)",
-            "rgb(17, 119, 176)",
-            "rgb(173, 101, 152)"
-        ];
-        setInterval(function () {
-            document.body.style.backgroundColor = bg_colors[__index];
-            if (__index == bg_colors.length) __index = 0;
-            else __index++;
-        }, 1000 * 10);
+        // var __index = 1;
+        // var bg_colors = [
+        //     "rgb(192, 72, 81)",
+        //     "rgb(240, 124, 130)",
+        //     "rgb(80, 10, 22)",
+        //     "rgb(230, 210, 213)",
+        //     "rgb(47, 47, 53)",
+        //     "rgb(167, 168, 189)",
+        //     "rgb(17, 119, 176)",
+        //     "rgb(173, 101, 152)"
+        // ];
+        // setInterval(function () {
+        //     document.body.style.backgroundColor = bg_colors[__index];
+        //     if (__index == bg_colors.length) __index = 0;
+        //     else __index++;
+        // }, 1000 * 10);
     </script>
 </body>
 

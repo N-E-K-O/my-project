@@ -1,15 +1,87 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>生日快乐</title>
+    <style>
+        @font-face {
+            font-family: "f_zh";
+            src: url('fonts/f_zh.woff') format('woff');
+        }
+
+        body {
+            position: relative;
+            background-color: rgb(192, 72, 81);
+            transition: all 5s;
+        }
+
+        .txt-container {
+            position: absolute;
+            top: 200px;
+            right: 50%;
+            color: white;
+            display: flex;
+            flex-direction: row-reverse;
+            transform: translateX(50%);
+        }
+
+        .vertical-txt {
+            writing-mode: tb-rl;
+        }
+
+        .vertical-txt.logo {
+            margin-top: -110px;
+            font-size: 32px;
+        }
+        .vertical-txt.logo .en {
+            font-size: 40px;
+            letter-spacing: 5px;
+        }
+
+        .vertical-txt.zh {
+            font-size: 32px;
+            font-family: "f_zh", "宋体", "微软雅黑";
+        }
+
+        .brand {
+            width: 16px; 
+            height: 16px;
+            transform: rotate(90deg);
+        }
+    </style>
 </head>
+
 <body>
-    <p>
-        算一生绕遍，瑶阶玉树
-           如君样、人间少
-    ~快燃生日寿火烛，乐着前尘星光路~ 
-      呆呆、生日快乐 (ღ˘⌣˘ღ)
-    </p>
+    <div class="txt-container">
+        <p class="vertical-txt logo">
+            <img src="./images/梅花.png" style="width: 128px; height: 128px;">
+            <span class="en">HAPPY BIRTHDAY</span>
+            <img class="brand" src="./images/印花.png">
+        </p>
+        <p class="vertical-txt zh">算一生绕遍， 瑶阶玉树。</p>
+        <p class="vertical-txt zh">如君样、人间少。</p>
+        <p class="vertical-txt zh">快燃生日寿火烛， 乐着前尘星光路。</p>
+    </div>
+
+    <script>
+        var __index = 1;
+        var bg_colors = [
+            "rgb(192, 72, 81)",
+            "rgb(240, 124, 130)",
+            "rgb(80, 10, 22)",
+            "rgb(230, 210, 213)",
+            "rgb(47, 47, 53)",
+            "rgb(167, 168, 189)",
+            "rgb(17, 119, 176)",
+            "rgb(173, 101, 152)"
+        ];
+        setInterval(function() {
+            document.body.style.backgroundColor = bg_colors[__index];
+            if (__index == bg_colors.length) __index = 0;
+            else __index++;
+        }, 6000);
+    </script>
 </body>
+
 </html>

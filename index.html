@@ -32,6 +32,7 @@
 
         .vertical-txt {
             writing-mode: tb-rl;
+            white-space: nowrap;
         }
 
         .logo-container {
@@ -69,11 +70,15 @@
         }
 
         #switch-container {
+            position: fixed;
+            left: 50%;
+            bottom: 2em;
             cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-end;
+            transform: translateX(50%);
         }
 
         #switch {
@@ -115,7 +120,7 @@
                 <img id="switch-txt-img" src="./images/播放.png" style="width: 1em; height: 1em;">
             </span>
         </div>
-        <audio src="./media/bg.m4a" controls="controls" loop="loop" style="display: none;"></audio>
+        <audio src="./media/bg.m4a" controls="controls" preload="auto" loop="loop" style="display: none;"></audio>
     </div>
 
     <script>

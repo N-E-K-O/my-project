@@ -35,12 +35,13 @@
             white-space: nowrap;
         }
 
-        .logo-container {
-            margin-top: 0em;
+        #logo-container {
+            margin-top: -3em;
             font-size: 1em;
             display: flex;
             align-items: center;
-            transition: all 1s ease-out;
+            transition: all 3s ease-out;
+            opacity: 0;
         }
 
         .logo {
@@ -61,12 +62,17 @@
             transform: rotate(90deg);
         }
 
-        .zh {
+
+        .dance-txt {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dance-txt-char {
             font-size: 1.5em;
             font-family: "f_zh", "宋体";
-            letter-spacing: 5px;
-            transition: all 3s ease;
-            color: transparent;
+            color: white;
+            font-style: normal;
         }
 
         #switch-container {
@@ -92,11 +98,13 @@
             color: white;
             transition: all .3s ease;
         }
+
         #switch-txt-img {
             width: 1em;
             height: 1em;
             vertical-align: middle;
         }
+
         #switch-txt:hover {
             font-weight: bold;
         }
@@ -105,14 +113,14 @@
 
 <body>
     <div class="txt-container">
-        <p class="vertical-txt logo-container">
+        <p id="logo-container" class="vertical-txt">
             <img class="logo" src="./images/梅花.png">
             <span class="en">HAPPY BIRTHDAY</span>
             <img class="brand" src="./images/印花.png">
         </p>
-        <p class="vertical-txt zh">算一生绕遍， 瑶阶玉树。</p>
-        <p class="vertical-txt zh">如君样、人间少。</p>
-        <p class="vertical-txt zh">快燃生日寿火烛， 乐着前尘星光路。</p>
+        <p class="dance-txt"></p>
+        <p class="dance-txt"></p>
+        <p class="dance-txt"></p>
         <div id="switch-container">
             <img id="switch" src="./images/莲花.png">
             <span id="switch-txt">
@@ -120,58 +128,122 @@
                 <img id="switch-txt-img" src="./images/播放.png" style="width: 1em; height: 1em;">
             </span>
         </div>
-        <audio src="./media/bg.mp3" controls="controls" preload="auto" loop="loop" style="display: none;"></audio>
+        <audio id="bg-audio" src="./media/bg.mp3" loop="loop" preload="auto" style="display: none;"></audio>
     </div>
 
     <script>
-        var __isPlay = false;
-        var $switch = document.getElementById("switch-container");
-        var $player = document.getElementsByTagName("audio")[0];
-        var $switchTxtImg = document.getElementById("switch-txt-img");
-        $switch.addEventListener("click", function () {
-            __isPlay ? $player.pause() : $player.play();
-            __isPlay = !__isPlay;
-            $switchTxtImg.src = __isPlay ? "./images/暂停.png" : "./images/播放.png";
+        function main() {
+            bgMusic();
+            logoAnimate();
+            backgroundAnimate();
+            txtAnimate();
+        }
+        main();
 
-        });
-        var __switchIndex = 0;
-        var $switch = document.getElementById("switch");
-        var $switchTxt = document.getElementById("switch-txt");
-        $switch.style.transform = "scale(1.3)";
-        setInterval(function () {
-            $switch.style.transform = __switchIndex % 2 == 0 ? "" : "scale(1.3)";
-            // $switchTxt.style.color = __switchIndex % 2 == 0 ? "transparent" : "white";
-            __switchIndex++;
-        }, 3000 * 1)
+        function txtAnimate() {
+            var strs = [
+                "算一生绕遍， 瑶阶玉树。",
+                "如君样、人间少。",
+                "快燃生日寿火烛， 乐着前尘星光路。"
+            ];
+            var $danceTxts = document.getElementsByClassName("dance-txt");
+            var charDoms = [];
+            strs.forEach(function (str, index) {
+                var chars = str.split('');
+                charDoms[index] = [];
+                chars = chars.map((char) => {
+                    let dom = DOM_i(char);
+                    charDoms[index].push(dom);
+                    $danceTxts[index].appendChild(dom);
+                    return dom;
+                });
+            });
 
-        var __logContainerIndex = 0;
-        var $logContainer = document.getElementsByClassName("logo-container")[0];
-        setTimeout(function () {
-            $logContainer.style.marginTop = "-3em";
-        }, 100)
+            var __showTxtIndex = 0;
 
-        var __bgIndex = 1;
-        var bg_colors = [
-            "rgb(192, 72, 81)",
-            "rgb(56, 25, 36)",
-            "rgb(80, 10, 22)",
-            "rgb(43, 115, 175)",
-            "rgb(175, 46, 43)",
-            "rgb(72, 91, 77)",
-            "rgb(17, 119, 176)",
-            "rgb(78, 42, 64)"
-        ];
-        setInterval(function () {
-            document.body.style.backgroundColor = bg_colors[__bgIndex % bg_colors.length];
-            __bgIndex++;
-        }, 1000 * 10);
+            function showTxt() {
+                charDoms[__showTxtIndex++].forEach(function (charDom) {
+                    charDom.style.opacity = 1;
+                    charDom.style.transform = 'none';
+                })
+                if (__showTxtIndex < strs.length) setTimeout(showTxt, 1000 * 4)
+            }
+            setTimeout(showTxt, 1000 * 1.1);
 
-        var __zhIndex = 0;
-        var $zhs = document.getElementsByClassName("zh");
-        setInterval(function () {
-            $zhs[__zhIndex % 3].style.color = "white";
-            __zhIndex++;
-        }, 2000)
+            function rndint(x, y) {
+                return Math.floor(x + (y - x + 1) * Math.random());
+            }
+
+            function rndfloat(x, y) {
+                return x + (y - x) * Math.random();
+            }
+
+            function DOM_i(char) {
+                var i = document.createElement("i");
+                i.className = "dance-txt-char";
+                i.style.opacity = 0;
+                i.style.transform = `
+                                translate(${ rndint(-500, 500) }%,${ rndint(-500, 500) }%)
+                                scale(${ rndfloat(0, 2) })
+                                rotate3d(${ Math.random() }, ${ Math.random() }, ${ Math.random() }, ${ rndint(-180, 180) }deg)
+                            `;
+                i.innerText = char;
+                i.style.transition = `all ${ rndint(3000, 4000) }ms ${ rndint(0, 300) }ms`;
+
+                return i;
+            }
+        }
+
+        function backgroundAnimate() {
+            var __bgIndex = 1;
+            var bg_colors = [
+                "rgb(192, 72, 81)",
+                "rgb(56, 25, 36)",
+                "rgb(80, 10, 22)",
+                "rgb(43, 115, 175)",
+                "rgb(175, 46, 43)",
+                "rgb(72, 91, 77)",
+                "rgb(17, 119, 176)",
+                "rgb(78, 42, 64)"
+            ];
+            setInterval(function () {
+                document.body.style.backgroundColor = bg_colors[__bgIndex % bg_colors.length];
+                __bgIndex++;
+            }, 1000 * 10);
+        }
+
+        function bgMusic() {
+            var __isPlay = false;
+            var $switch = document.getElementById("switch-container");
+            var $player = document.getElementById("bg-audio");
+            var $switchTxtImg = document.getElementById("switch-txt-img");
+            $switch.addEventListener("click", function () {
+                __isPlay ? $player.pause() : $player.play();
+                __isPlay = !__isPlay;
+                $switchTxtImg.src = __isPlay ? "./images/暂停.png" : "./images/播放.png";
+
+            });
+            $switch.click();
+            
+            var __switchIndex = 0;
+            var $switch = document.getElementById("switch");
+            var $switchTxt = document.getElementById("switch-txt");
+            $switch.style.transform = "scale(1.3)";
+            setInterval(function () {
+                $switch.style.transform = __switchIndex % 2 == 0 ? "" : "scale(1.3)";
+                // $switchTxt.style.color = __switchIndex % 2 == 0 ? "transparent" : "white";
+                __switchIndex++;
+            }, 3000 * 1);
+
+        }
+
+        function logoAnimate() {
+            var __logContainerIndex = 0;
+            var $logContainer = document.getElementById("logo-container");
+            setTimeout(function () {
+                $logContainer.style.opacity = "1";
+            }, 100)
+        }
     </script>
 </body>
 

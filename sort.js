@@ -46,8 +46,74 @@ function insertSort(arr, sortType = "desc") {
     return arr
 }
 
+function quickSort_asc(arr, left, right) {
+    left = typeof left == "undefined" ?  0 : left
+    right = typeof right == "undefined" ?  arr.length : right
+
+    function partition(arr, left, right) {
+        let pivot = left
+        let index = pivot + 1
+        for (let i = index; i < right; i++) {
+            if (arr[i] < arr[pivot]) {
+                swap(arr, i, index)
+                index++
+            }
+        }
+        swap(arr, pivot, index - 1)
+        return index - 1
+    }
+
+    function swap(arr, i, j) {
+        let temp = arr[i]
+        arr[i] = arr[j]
+        arr[j] = temp
+    }
+
+    if (left < right) {
+        let partitionIndex = partition(arr, left, right);
+        quickSort(arr, left, partitionIndex - 1)
+        quickSort(arr, partitionIndex + 1, right)
+    }
+
+    return arr
+}
+
+function quickSort_desc(arr, left, right) {
+    left = typeof left == "undefined" ?  0 : left
+    right = typeof right == "undefined" ?  arr.length - 1 : right
+
+    function partition(arr, left, right) {
+        let pivot = right
+        let index = pivot - 1
+        for (let i = index; i >= left; i--) {
+            if (arr[i] < arr[pivot]) {
+                swap(arr, i, index)
+                index--
+            }
+        }
+        swap(arr, pivot, index + 1)
+        return index + 1
+    }
+
+    function swap(arr, i, j) {
+        let temp = arr[i]
+        arr[i] = arr[j]
+        arr[j] = temp
+    }
+
+    if (left <= right) {
+        let partitionIndex = partition(arr, left, right);
+        quickSort(arr, left, partitionIndex - 1)
+        quickSort(arr, partitionIndex + 1, right)
+    }
+
+    return arr
+}
+
 module.exports = {
     bubbleSort,
     selectionSort,
-    insertSort
+    insertSort,
+    quickSort_asc,
+    quickSort_desc
 }

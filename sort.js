@@ -46,11 +46,11 @@ function insertSort(arr, sortType = "desc") {
     return arr
 }
 
-function quickSort_asc(arr, left, right) {
+function quickSort(arr, sortType = "desc", left, right) {
     left = typeof left == "undefined" ?  0 : left
     right = typeof right == "undefined" ?  arr.length : right
 
-    function partition(arr, left, right) {
+    function partition_asc(arr, left, right) {
         let pivot = left
         let index = pivot + 1
         for (let i = index; i < right; i++) {
@@ -63,27 +63,8 @@ function quickSort_asc(arr, left, right) {
         return index - 1
     }
 
-    function swap(arr, i, j) {
-        let temp = arr[i]
-        arr[i] = arr[j]
-        arr[j] = temp
-    }
-
-    if (left < right) {
-        let partitionIndex = partition(arr, left, right);
-        quickSort(arr, left, partitionIndex - 1)
-        quickSort(arr, partitionIndex + 1, right)
-    }
-
-    return arr
-}
-
-function quickSort_desc(arr, left, right) {
-    left = typeof left == "undefined" ?  0 : left
-    right = typeof right == "undefined" ?  arr.length - 1 : right
-
-    function partition(arr, left, right) {
-        let pivot = right
+    function partition_desc(arr, left, right) {
+        let pivot = right - 1
         let index = pivot - 1
         for (let i = index; i >= left; i--) {
             if (arr[i] < arr[pivot]) {
@@ -101,10 +82,12 @@ function quickSort_desc(arr, left, right) {
         arr[j] = temp
     }
 
-    if (left <= right) {
-        let partitionIndex = partition(arr, left, right);
-        quickSort(arr, left, partitionIndex - 1)
-        quickSort(arr, partitionIndex + 1, right)
+    if (left < right) {
+        let partition = partition_desc
+        if (sortType == 'asc') partition = partition_asc
+        let partitionIndex = partition(arr, left, right)
+        quickSort(arr, sortType, left, partitionIndex - 1)
+        quickSort(arr, sortType, partitionIndex + 1, right)
     }
 
     return arr
@@ -114,6 +97,5 @@ module.exports = {
     bubbleSort,
     selectionSort,
     insertSort,
-    quickSort_asc,
-    quickSort_desc
+    quickSort,
 }
